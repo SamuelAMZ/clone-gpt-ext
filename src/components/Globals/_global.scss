@@ -1,0 +1,36 @@
+.clonegpt-header-wrapper {
+  display: flex;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
+  gap: 1rem;
+  border-bottom: 1px solid #424242;
+}
+.clonegpt-header {
+  padding: 0.7rem 0.7rem 0.7rem 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 3px;
+
+  img {
+    width: 27px;
+    height: auto;
+  }
+
+  p {
+    font-size: 22px;
+    font-weight: 400;
+    font-family: "Urbanist", sans-serif;
+    line-height: 1.2;
+  }
+}
+.clonegpt-widget-icon-close {
+  font-size: 25px;
+  cursor: pointer;
+  color: #e7e7e7;
+  margin-right: 0.7rem;
+}
