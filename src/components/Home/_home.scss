@@ -7,8 +7,8 @@
 
   .clonegpt-feature-single {
     display: grid;
-    grid-template-columns: 30px 1fr;
-    gap: 0.9rem;
+    grid-template-columns: 20px 1fr;
+    gap: 0.7rem;
     background-color: transparent;
     border: 1px solid #424242;
     border-radius: 7px;
@@ -25,7 +25,7 @@
       gap: 1.2px;
 
       h3 {
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 500;
         font-family: "Urbanist", sans-serif;
         line-height: 1;
@@ -35,11 +35,12 @@
         font-size: 13px;
         font-weight: 300;
         font-family: "Urbanist", sans-serif;
+        opacity: 0.7;
       }
     }
   }
 }
 .clonegpt-single-icon {
-  font-size: 35px;
+  font-size: 20px;
   color: rgb(216, 216, 216);
 }

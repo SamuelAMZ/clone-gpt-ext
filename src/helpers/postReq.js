@@ -6,11 +6,14 @@ const postReq = async (data, url) => {
   headers.append("Content-Type", "application/json");
   headers.append("Accept", "application/json");
   headers.append("GET", "POST", "OPTIONS");
-  headers.append("Access-Control-Allow-Origin", `http://localhost:4000/`);
+  headers.append(
+    "Access-Control-Allow-Origin",
+    `https://iprompt-backend.uc.r.appspot.com/`
+  );
   headers.append("Access-Control-Allow-Credentials", "true");
 
   // fetch
-  const req = await fetch(`http://localhost:4000${url}`, {
+  const req = await fetch(`https://iprompt-backend.uc.r.appspot.com${url}`, {
     mode: "cors",
     method: "POST",
     headers: headers,

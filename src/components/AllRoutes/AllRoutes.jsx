@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 
+// context provider
+import { NewShareScrensProvider } from "../../contexts/NewShare";
+import { ShareLinkProvider } from "../../contexts/ShareLink";
+
 // context
 import VisibleScrensContext from "../../contexts/VisibleScreens";
 
@@ -7,6 +11,7 @@ import VisibleScrensContext from "../../contexts/VisibleScreens";
 import Header from "../Globals/Header";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
+import NewShare from "../Features/Shares/NewShare";
 
 const AllRoutes = () => {
   const { screen, changeScreen } = useContext(VisibleScrensContext);
@@ -44,11 +49,16 @@ const AllRoutes = () => {
   }, []);
 
   return (
-    <div className="clonegpt-routes-container">
-      <Header />
-      {screen.login && <Login />}
-      {screen.home && <Home />}
-    </div>
+    <NewShareScrensProvider>
+      <ShareLinkProvider>
+        <div className="clonegpt-routes-container">
+          <Header />
+          {screen.login && <Login />}
+          {screen.home && <Home />}
+          {screen.newShare && <NewShare />}
+        </div>
+      </ShareLinkProvider>
+    </NewShareScrensProvider>
   );
 };
 
