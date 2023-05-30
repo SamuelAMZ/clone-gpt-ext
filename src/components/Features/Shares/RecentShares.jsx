@@ -76,17 +76,19 @@ const RecentShares = () => {
 
       {/* load more btn */}
       {!userChatsLoading && userChatsData && (
-        <button
-          className="btn btn-outline w-full"
-          onClick={() =>
-            chrome.runtime.sendMessage({
-              from: "openUserUrl",
-              url: `https://iprompt.co/`,
-            })
-          }
-        >
-          Load more
-        </button>
+        <div className="clonegpt-btn-bottom">
+          <button
+            className="btn btn-outline w-full"
+            onClick={() =>
+              chrome.runtime.sendMessage({
+                from: "openUserUrl",
+                url: `https://iprompt.co/`,
+              })
+            }
+          >
+            Load more
+          </button>
+        </div>
       )}
     </div>
   );

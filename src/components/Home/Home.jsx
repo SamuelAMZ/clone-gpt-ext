@@ -15,6 +15,15 @@ const Home = () => {
       routes: true,
       newShare: true,
       home: false,
+      newContext: false,
+    });
+  };
+  const redirectToNewContext = () => {
+    changeScreen({
+      routes: true,
+      newContext: true,
+      newShare: false,
+      home: false,
     });
   };
 
@@ -29,7 +38,7 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <div className="clonegpt-feature-single">
+      <div className="clonegpt-feature-single" onClick={redirectToNewContext}>
         <MdOutlineWindow className="clonegpt-single-icon" />
         <div className="clonegpt-desc">
           <h3>Contexts</h3>

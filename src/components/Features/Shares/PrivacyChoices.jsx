@@ -4,6 +4,9 @@ import React, { useState, useContext } from "react";
 import NewShareContext from "../../../contexts/NewShare";
 import ShareLinkContext from "../../../contexts/ShareLink";
 
+// helpers
+import getUid from "../Contexts/helpers/getUid";
+
 const PrivacyChoices = () => {
   const { shareScreens, setShareScreens } = useContext(NewShareContext);
   const { shareLink, setShareLink } = useContext(ShareLinkContext);
@@ -32,14 +35,10 @@ const PrivacyChoices = () => {
       }
     );
 
-    const getItemFromLocalStorage = async (key) => {
-      return new Promise((resolve, reject) => {
-        chrome.storage.local.get(key, function (item) {
-          resolve(item.uid);
-        });
-      });
-    };
-    let uid = await getItemFromLocalStorage("uid");
+    const uid = await getUid();
+    if (!uid) {
+      return console.log("session expire, please login.");
+    }
 
     const data = {
       textFormat: discArr,
@@ -65,15 +64,12 @@ const PrivacyChoices = () => {
     headers.append("Access-Control-Allow-Credentials", "true");
 
     // fetch
-    const req = fetch(
-      "https://iprompt-backend.uc.r.appspot.com/api/new-share",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(data),
-        credentials: "include",
-      }
-    )
+    const req = fetch(`${process.env.REACT_APP_API_URL}/api/new-share`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+      credentials: "include",
+    })
       .then((response) => response.json())
       .then((data) => {
         // if response is bad then send a negative message to bckground

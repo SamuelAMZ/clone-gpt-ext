@@ -8,6 +8,7 @@ export const VisibleScrensProvider = ({ children }) => {
     login: false,
     home: false,
     newShare: false,
+    newContext: false,
   });
 
   const changeScreen = (newLogin) => {

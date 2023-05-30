@@ -45,8 +45,11 @@ const Result = () => {
 
       <div>
         {/* success message */}
-        <BsCheck2Square className="clonegpt-icon-first-result" />
-        <p>Successfully shared your chat</p>
+        <BsCheck2Square
+          className="clonegpt-icon-first-result"
+          onClick={redirectToShareLink}
+        />
+        <p onClick={redirectToShareLink}>Successfully shared your chat</p>
 
         {/* redirect/copy link */}
         <div className="form-control w-full">
