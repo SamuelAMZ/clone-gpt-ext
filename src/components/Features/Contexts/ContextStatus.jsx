@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 // react query
 import { useQuery } from "react-query";
@@ -25,10 +25,14 @@ import { BiCopyAlt } from "react-icons/bi";
 import { FiExternalLink } from "react-icons/fi";
 
 const ContextStatus = () => {
+  // contexts
   const { contextScreen, setContextScreens } = useContext(NewContextContext);
   const { currentContextId, setCurrentContextId } = useContext(
     CurrentContextIdContext
   );
+
+  // states
+  const [updatingContextState, setUpdatingContextState] = useState(false);
 
   const backLogic = () => {
     setContextScreens({
@@ -68,6 +72,66 @@ const ContextStatus = () => {
       enabled: true,
     }
   );
+
+  // activate context
+  const activateNewContext = async () => {
+    setUpdatingContextState(true);
+
+    // get uid
+    const uid = await getUid();
+    if (!uid) {
+      setUpdatingContextState(false);
+      return console.log("session expire, please login.");
+    }
+
+    // activate context
+    const responseFromActivation = await postReq(
+      {
+        uid: uid,
+        contextId: currentContextId,
+      },
+      "/api/activate-context"
+    );
+    if (!responseFromActivation || responseFromActivation?.code !== "ok") {
+      setUpdatingContextState(false);
+      return console.log("error activating context, retry later");
+    }
+
+    setUpdatingContextState(false);
+
+    // redirect back to first page
+    backLogic();
+  };
+
+  // pause context
+  const pauseContext = async () => {
+    setUpdatingContextState(true);
+
+    // get uid
+    const uid = await getUid();
+    if (!uid) {
+      setUpdatingContextState(false);
+      return console.log("session expire, please login.");
+    }
+
+    // activate context
+    const responseFromPausing = await postReq(
+      {
+        uid: uid,
+        contextId: currentContextId,
+      },
+      "/api/pause-context"
+    );
+    if (!responseFromPausing || responseFromPausing?.code !== "ok") {
+      setUpdatingContextState(false);
+      return console.log("error activating context, retry later");
+    }
+
+    setUpdatingContextState(false);
+
+    // redirect back to first page
+    backLogic();
+  };
 
   return (
     <div className="clonegpt-single-context-page">
@@ -131,9 +195,38 @@ const ContextStatus = () => {
 
           {/* context actions */}
           <div className="clonegpt-single-context-actions">
-            <button className="btn btn-outline w-full clonegpt-new-share">
-              Activate
-            </button>
+            {/* pause btn */}
+            {!updatingContextState && contextData?.payload?.data?.state && (
+              <button
+                className="btn btn-outline w-full clonegpt-new-share paused"
+                onClick={pauseContext}
+              >
+                Pause
+              </button>
+            )}
+            {updatingContextState && contextData?.payload?.data?.state && (
+              <button className="btn btn-outline w-full clonegpt-new-share paused loading">
+                Pausing...
+              </button>
+            )}
+            {/* actiavet btn */}
+            {!updatingContextState && !contextData?.payload?.data?.state && (
+              <button
+                className="btn btn-outline w-full clonegpt-new-share"
+                onClick={activateNewContext}
+              >
+                Activate
+              </button>
+            )}
+            {updatingContextState && !contextData?.payload?.data?.state && (
+              <button
+                className="btn btn-outline w-full clonegpt-new-share loading"
+                onClick={activateNewContext}
+              >
+                Activating...
+              </button>
+            )}
+
             <button className="btn btn-outline w-full">Remove</button>
           </div>
         </div>

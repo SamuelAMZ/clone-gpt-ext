@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+
+// contexts
+import NewContextContext from "../../../contexts/NewContext";
+import CurrentContextIdContext from "../../../contexts/CurrentContextId";
 
 // helpers
 import postReq from "../../../helpers/postReq";
@@ -14,6 +18,13 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { MdOutlineWindow } from "react-icons/md";
 
 const RecentContexts = () => {
+  // contexts
+  const { contextScreen, setContextScreens } = useContext(NewContextContext);
+  const { currentContextId, setCurrentContextId } = useContext(
+    CurrentContextIdContext
+  );
+
+  // requests
   const handleContextsList = async () => {
     const uid = await getUid();
     if (!uid) {
@@ -36,6 +47,25 @@ const RecentContexts = () => {
       enabled: true,
     });
 
+  // redirect to single context page
+  const redirectToContextPage = (contextId) => {
+    // set current context id
+    setCurrentContextId(contextId);
+
+    // redirect to single context page
+    setContextScreens({
+      moduleStatus: true,
+      moduleType: false,
+      first: false,
+      pdf: false,
+      copyAndPaste: false,
+      externalSite: false,
+      publicDisc: false,
+      txt: false,
+      googleDrive: false,
+    });
+  };
+
   return (
     <div className="clonegpt-recent-shares">
       {/* title */}
@@ -46,7 +76,11 @@ const RecentContexts = () => {
         userContextsData &&
         userContextsData?.payload?.contexts.map((elm, idx) => {
           return (
-            <div key={idx} className="clonegpt-single-recent-share">
+            <div
+              key={idx}
+              className="clonegpt-single-recent-share"
+              onClick={() => redirectToContextPage(elm?._id)}
+            >
               <MdOutlineWindow />
               <p>
                 {elm?.name.substr(0, 27)}
