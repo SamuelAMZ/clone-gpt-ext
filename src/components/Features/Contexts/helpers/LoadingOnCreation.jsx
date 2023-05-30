@@ -27,7 +27,7 @@ const LoadingOnCreation = ({ loadingStates }) => {
           return (
             <div
               className={
-                elm.status
+                elm.status === true
                   ? "clonegpt-single-loader-elm active"
                   : "clonegpt-single-loader-elm"
               }
@@ -35,7 +35,7 @@ const LoadingOnCreation = ({ loadingStates }) => {
             >
               <BsCheckCircle
                 className={
-                  elm.status
+                  elm.status === true
                     ? "single-loader-icon active"
                     : "single-loader-icon"
                 }

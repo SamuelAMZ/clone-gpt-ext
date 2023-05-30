@@ -1,7 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 
+// import loading lib
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 // context
 import NewContextContext from "../../../../../contexts/NewContext";
+import CurrentContextIdContext from "../../../../../contexts/CurrentContextId";
 
 // helpers
 import postReq from "../../../../../helpers/postReq";
@@ -10,6 +14,9 @@ import LoadingOnCreation from "../../helpers/LoadingOnCreation";
 
 const CopyAndPaste = () => {
   const { contextScreen, setContextScreens } = useContext(NewContextContext);
+  const { currentContextId, setCurrentContextId } = useContext(
+    CurrentContextIdContext
+  );
 
   // new context form state
   const [formData, setFormData] = useState({
@@ -84,6 +91,9 @@ const CopyAndPaste = () => {
       resetLoadingState();
       return;
     }
+
+    // set current context id
+    setCurrentContextId(serverRes?.payload?.contextId);
 
     // set new online context id
 
@@ -169,6 +179,7 @@ const CopyAndPaste = () => {
           <textarea
             className="textarea w-full"
             placeholder="Paste your text here"
+            rows="4"
             value={formData.rawText}
             onChange={(e) => {
               setFormData({

@@ -6,6 +6,9 @@ import postReq from "../../../helpers/postReq";
 // react query
 import { useQuery } from "react-query";
 
+// import loading lib
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 // icons
 import { BsChatRightDots } from "react-icons/bs";
 
@@ -52,6 +55,7 @@ const RecentShares = () => {
       {/* title */}
       <h3>Your recent shares</h3>
 
+      {/* data fetched succesfully component */}
       {!userChatsLoading &&
         userChatsData &&
         userChatsData?.payload?.chats.map((elm, idx) => {
@@ -72,7 +76,20 @@ const RecentShares = () => {
           );
         })}
 
-      {userChatsLoading && <p>Loading...</p>}
+      {/* fallback message */}
+      {!userChatsLoading &&
+        userChatsData &&
+        userChatsData?.payload?.count === 0 && <p>No item yet</p>}
+
+      {/* loading state component */}
+      {userChatsLoading && (
+        <div className="clonegpt-list-loader-container-skeleton">
+          <SkeletonTheme baseColor="#8b8b8b35" highlightColor="#f9fafb35">
+            <Skeleton height={25} width={"100%"} count={5} />
+            <Skeleton height={40} width={"100%"} count={1} />
+          </SkeletonTheme>
+        </div>
+      )}
 
       {/* load more btn */}
       {!userChatsLoading && userChatsData && (

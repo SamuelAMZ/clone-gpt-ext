@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { NewShareScrensProvider } from "../../contexts/NewShare";
 import { ShareLinkProvider } from "../../contexts/ShareLink";
 import { NewContextScrensProvider } from "../../contexts/NewContext";
+import { CurrentContextProvider } from "../../contexts/CurrentContextId";
 
 // context
 import VisibleScrensContext from "../../contexts/VisibleScreens";
@@ -54,13 +55,15 @@ const AllRoutes = () => {
     <NewShareScrensProvider>
       <ShareLinkProvider>
         <NewContextScrensProvider>
-          <div className="clonegpt-routes-container">
-            <Header />
-            {screen.login && <Login />}
-            {screen.home && <Home />}
-            {screen.newShare && <NewShare />}
-            {screen.newContext && <NewContext />}
-          </div>
+          <CurrentContextProvider>
+            <div className="clonegpt-routes-container">
+              <Header />
+              {screen.login && <Login />}
+              {screen.home && <Home />}
+              {screen.newShare && <NewShare />}
+              {screen.newContext && <NewContext />}
+            </div>
+          </CurrentContextProvider>
         </NewContextScrensProvider>
       </ShareLinkProvider>
     </NewShareScrensProvider>
