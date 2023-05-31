@@ -24,7 +24,30 @@ const RecentContexts = () => {
     CurrentContextIdContext
   );
 
-  // requests
+  // active contexts
+  const handleActiveContextsList = async () => {
+    const uid = await getUid();
+    if (!uid) {
+      return console.log("session expire, please login.");
+    }
+
+    // send req
+    return await postReq(
+      {
+        uid: uid,
+      },
+      "/api/active-contexts"
+    );
+  };
+  const {
+    data: userActiveContextsData,
+    isLoading: userActiveContextsDataLoading,
+  } = useQuery(["user-active-contexts"], handleActiveContextsList, {
+    refetchOnWindowFocus: false,
+    enabled: true,
+  });
+
+  // all contexts
   const handleContextsList = async () => {
     const uid = await getUid();
     if (!uid) {
@@ -67,51 +90,84 @@ const RecentContexts = () => {
   };
 
   return (
-    <div className="clonegpt-recent-shares">
-      {/* title */}
-      <h3>Your contexts</h3>
+    <>
+      {/* active contexts */}
+      {!userActiveContextsDataLoading &&
+        userActiveContextsData &&
+        userActiveContextsData?.payload?.count > 0 && (
+          <div className="clonegpt-recent-shares active-contexts">
+            {/* title */}
 
-      {/* data fetched succesfully component */}
-      {!userContextsDataLoading &&
-        userContextsData &&
-        userContextsData?.payload?.contexts.map((elm, idx) => {
-          return (
-            <div
-              key={idx}
-              className="clonegpt-single-recent-share"
-              onClick={() => redirectToContextPage(elm?._id)}
-            >
-              <MdOutlineWindow />
-              <p>
-                {elm?.name.substr(0, 27)}
-                {elm?.name.length >= 27 && "..."}
-              </p>
-            </div>
-          );
-        })}
+            <h3>Active contexts</h3>
 
-      {/* fallback message */}
-      {!userContextsDataLoading &&
-        userContextsData &&
-        userContextsData?.payload?.count === 0 && <p>No item yet</p>}
+            {/* data fetched succesfully component */}
+            {!userActiveContextsDataLoading &&
+              userActiveContextsData &&
+              userActiveContextsData?.payload?.contexts.map((elm, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className="clonegpt-single-recent-share"
+                    onClick={() => redirectToContextPage(elm?._id)}
+                  >
+                    <MdOutlineWindow />
+                    <p>
+                      {elm?.name.substr(0, 27)}
+                      {elm?.name.length >= 27 && "..."}
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
+        )}
 
-      {/* loading state component */}
-      {userContextsDataLoading && (
-        <div className="clonegpt-list-loader-container-skeleton">
-          <SkeletonTheme baseColor="#8b8b8b35" highlightColor="#f9fafb35">
-            <Skeleton height={25} width={"100%"} count={5} />
-            <Skeleton height={40} width={"100%"} count={1} />
-          </SkeletonTheme>
-        </div>
-      )}
+      {/* all contexts */}
+      <div className="clonegpt-recent-shares">
+        {/* title */}
+        <h3>All contexts</h3>
 
-      {/* load more btn */}
-      {!userContextsDataLoading && userContextsData && (
-        <div className="clonegpt-btn-bottom">
-          <button className="btn btn-outline w-full">Load more</button>
-        </div>
-      )}
-    </div>
+        {/* data fetched succesfully component */}
+        {!userContextsDataLoading &&
+          userContextsData &&
+          userContextsData?.payload?.contexts.map((elm, idx) => {
+            return (
+              <div
+                key={idx}
+                className="clonegpt-single-recent-share"
+                onClick={() => redirectToContextPage(elm?._id)}
+              >
+                <MdOutlineWindow />
+                <p>
+                  {elm?.name.substr(0, 27)}
+                  {elm?.name.length >= 27 && "..."}
+                </p>
+              </div>
+            );
+          })}
+
+        {/* fallback message */}
+        {!userContextsDataLoading &&
+          userContextsData &&
+          userContextsData?.payload?.count === 0 && <p>No item yet</p>}
+
+        {/* loading state component */}
+        {userContextsDataLoading && (
+          <div className="clonegpt-list-loader-container-skeleton">
+            <SkeletonTheme baseColor="#8b8b8b35" highlightColor="#f9fafb35">
+              <Skeleton height={25} width={"100%"} count={5} />
+              <Skeleton height={40} width={"100%"} count={1} />
+            </SkeletonTheme>
+          </div>
+        )}
+
+        {/* load more btn */}
+        {!userContextsDataLoading && userContextsData && (
+          <div className="clonegpt-btn-bottom">
+            <button className="btn btn-outline w-full">Load more</button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

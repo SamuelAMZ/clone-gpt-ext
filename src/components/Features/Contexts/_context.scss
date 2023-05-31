@@ -232,3 +232,10 @@
 .clonegpt-list-loader-container-skeleton {
   width: 100%;
 }
+.active-contexts {
+  .clonegpt-single-recent-share {
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+}

@@ -8,6 +8,7 @@ import VisibleScrensContext from "../../contexts/VisibleScreens";
 
 // components
 import AllRoutes from "../AllRoutes/AllRoutes";
+import Test from "../Features/QuickActions/Test";
 
 // icons
 import { AiOutlinePlus } from "react-icons/ai";
@@ -23,17 +24,6 @@ const Widget = () => {
     });
   };
 
-  // get user first details
-  // let userLinked = null;
-  // chrome.storage.local.get("uid", function (item) {
-  //   if (item.uid) {
-  //     userLinked = item.uid;
-  //   }
-  //   if (!item.uid) {
-  //     userLinked = null;
-  //   }
-  // });
-
   return (
     <>
       {/* widget never move */}
@@ -41,6 +31,9 @@ const Widget = () => {
         <img src={chrome.runtime.getURL("/assets/logo.png")} alt="logo" />
         <AiOutlinePlus className="clonegpt-widget-icon" />
       </div>
+
+      {/* btns */}
+      <Test />
 
       {/* the routes components will decide which page should show up */}
       {screen.routes && <AllRoutes />}

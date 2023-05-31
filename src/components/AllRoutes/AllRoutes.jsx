@@ -52,21 +52,23 @@ const AllRoutes = () => {
   }, []);
 
   return (
-    <NewShareScrensProvider>
-      <ShareLinkProvider>
-        <NewContextScrensProvider>
-          <CurrentContextProvider>
-            <div className="clonegpt-routes-container">
-              <Header />
-              {screen.login && <Login />}
-              {screen.home && <Home />}
-              {screen.newShare && <NewShare />}
-              {screen.newContext && <NewContext />}
-            </div>
-          </CurrentContextProvider>
-        </NewContextScrensProvider>
-      </ShareLinkProvider>
-    </NewShareScrensProvider>
+    <>
+      <NewShareScrensProvider>
+        <ShareLinkProvider>
+          <NewContextScrensProvider>
+            <CurrentContextProvider>
+              <div className="clonegpt-routes-container">
+                <Header />
+                {screen.login && <Login />}
+                {screen.home && <Home />}
+                {screen.newShare && <NewShare />}
+                {screen.newContext && <NewContext />}
+              </div>
+            </CurrentContextProvider>
+          </NewContextScrensProvider>
+        </ShareLinkProvider>
+      </NewShareScrensProvider>
+    </>
   );
 };
 
