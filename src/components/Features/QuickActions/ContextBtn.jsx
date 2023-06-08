@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 // react query
 import { useQuery } from "react-query";
@@ -11,6 +11,8 @@ import getUid from "../Contexts/helpers/getUid";
 import { MdOutlineWindow } from "react-icons/md";
 
 const ContextBtn = () => {
+  const [loadingQuery, setLoadingQuery] = useState(false);
+
   // active contexts
   const handleActiveContextsList = async () => {
     const uid = await getUid();
@@ -59,7 +61,7 @@ const ContextBtn = () => {
   const createPrompt = (contextFoundArr, query) => {
     let contextParagraph = "";
     let intructionParagraph =
-      "use this above context as an additional context for the answer";
+      "Use this above context as an additional context for the answer";
 
     contextFoundArr.forEach((elm) => {
       contextParagraph = `${contextParagraph} \n\n ${elm}`;
@@ -88,6 +90,12 @@ const ContextBtn = () => {
     openAiTextArea.value = prompt;
   };
 
+  // send prompt
+  const sendPrompt = () => {
+    const submitBtn = document.querySelector("form button.absolute");
+    submitBtn.click();
+  };
+
   // send request
   const sendQueryRequest = async () => {
     // get textarea form value
@@ -98,10 +106,16 @@ const ContextBtn = () => {
       return;
     }
 
+    // loading anim
+    setLoadingQuery(true);
+
     // get uid
     const uid = await getUid();
     if (!uid) {
       console.log("session expire, please login.");
+
+      // loading anim
+      setLoadingQuery(false);
       return;
     }
 
@@ -117,6 +131,8 @@ const ContextBtn = () => {
     }
 
     if (contextIdArr.length < 1) {
+      // loading anim
+      setLoadingQuery(false);
       return console.log("no active context");
     }
 
@@ -141,42 +157,44 @@ const ContextBtn = () => {
     // create prompt
     let prompt = createPrompt(contextParagraphs, query);
 
-    console.log(prompt);
-
     // update textarea with prompt
     updateTextAreaWithPrompt(prompt);
 
+    // send prompt
+    sendPrompt();
+
     // return to not submit
+    // loading anim
+    setLoadingQuery(false);
     return;
   };
 
-  // send context generation query
-  const generateContextBaseOnQuery = async () => {
-    let btns = document.querySelectorAll("#clonegpt-context-btn");
-    console.log(btns, "gg");
-
-    btns?.forEach((elm) => {
-      elm.addEventListener("click", sendQueryRequest);
-    });
-  };
-
-  useEffect(() => {
-    generateContextBaseOnQuery();
-  }, []);
-
   return (
-    <div
-      id="clonegpt-context-btn"
-      className="btn relative btn-neutral border-0 md:border"
-    >
-      <div className="flex w-full gap-2 items-center justify-center">
-        <MdOutlineWindow className="h-3 w-3 flex-shrink-0" />
-        Generate context
-        <span className="clonegpt-context-number inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
-          {userActiveContextsData?.payload?.count}
-        </span>
-      </div>
-    </div>
+    <>
+      {loadingQuery && (
+        <div
+          id="clonegpt-context-btn"
+          className="btn relative btn-neutral border-0 md:border loading"
+        >
+          loading...
+        </div>
+      )}
+      {!loadingQuery && (
+        <div
+          id="clonegpt-context-btn"
+          className="btn relative btn-neutral border-0 md:border"
+          onClick={sendQueryRequest}
+        >
+          <div className="flex w-full gap-2 items-center justify-center">
+            <MdOutlineWindow className="h-3 w-3 flex-shrink-0" />
+            Generate context
+            <span className="clonegpt-context-number inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+              {userActiveContextsData?.payload?.count}
+            </span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,0 +1,15 @@
+.clonegpt-context-btns {
+  position: fixed;
+  bottom: 3rem;
+  right: 1rem;
+
+  label {
+    border: 1px solid #afafaf;
+    background-color: rgba(64, 65, 79, 1);
+  }
+  ul {
+    background-color: rgba(64, 65, 79, 1);
+    gap: 0.5rem;
+    width: 200px !important;
+  }
+}

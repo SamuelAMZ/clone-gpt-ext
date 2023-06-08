@@ -4,84 +4,40 @@ import React, { useEffect, useState } from "react";
 import ContextBtn from "./ContextBtn";
 
 const Test = () => {
-  const [actualUrl, setActualUrl] = useState(null);
-  const [btns, setBtns] = useState([]);
-
-  let di;
-
-  const getActualUrl = async () => {
-    const getNow = async () => {
-      return new Promise(function (resolve, reject) {
-        chrome.runtime.sendMessage(
-          { from: "getActualLink" },
-          function (response) {
-            if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
-            } else {
-              resolve(response);
-            }
-          }
-        );
-      });
-    };
-
-    let url = await getNow();
-    return url.url;
-  };
-  const moveBtnToTheRightPlace = () => {
-    let contextBtn = document.querySelectorAll("#clonegpt-context-btns");
-    const btnsParent = document.querySelector("form div div div");
-
-    console.log(contextBtn, btnsParent);
-
-    if (btnsParent && contextBtn) {
-      contextBtn.forEach((elm) => {
-        btnsParent.appendChild(elm);
-      });
-      clearInterval(di);
-    }
-  };
-  const preventMoreThanOneBtn = () => {
-    const btns = document.querySelectorAll("#clonegpt-context-btns");
-    if (btns.length > 1) {
-      btns.forEach((item, idx) => {
-        if (idx != 1) {
-          item.remove();
+  const waitForClass = (selector) => {
+    return new Promise((resolve) => {
+      const checkExistence = () => {
+        console.log("check", " ", selector);
+        const element = document.querySelector(selector);
+        if (element) {
+          resolve(element);
+        } else {
+          setTimeout(checkExistence, 100); // Check again after a short delay
         }
-      });
-    }
+      };
+      checkExistence();
+    });
   };
 
-  useEffect(() => {
-    (async () => {
-      let id = setInterval(async () => {
-        let res = await getActualUrl();
-        setActualUrl(res);
-      }, [1000]);
-    })();
-  }, []);
-
-  useEffect(() => {
-    setBtns([...btns, <ContextBtn />]);
-    di = setInterval(() => {
-      moveBtnToTheRightPlace();
-      preventMoreThanOneBtn();
-    }, [500]);
-  }, [actualUrl]);
-
-  return btns.map((elm, idx) => {
-    return (
-      <>
-        <div
-          key={idx}
-          id="clonegpt-context-btns"
-          className="clonegpt-context-btns"
-        >
-          {elm}
+  return (
+    <>
+      <div id="clonegpt-context-btns" className="clonegpt-context-btns">
+        <div className="dropdown dropdown-hover dropdown-top dropdown-end">
+          <label tabIndex={0} className="btn m-1">
+            Quick Actions
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <ContextBtn />
+            </li>
+          </ul>
         </div>
-      </>
-    );
-  });
+      </div>
+    </>
+  );
 };
 
 export default Test;
