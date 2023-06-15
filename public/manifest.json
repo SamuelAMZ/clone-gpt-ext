@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "manifest_version": 3,
-  "name": "CloneGPT",
-  "description": "This is a Chrome extension for CloneGPT",
+  "name": "Kalami",
+  "description": "This is a Chrome extension for Kalami",
   "action": {
     "default_popup": "app/popup/popup.html",
     "default_title": "Mellon",
@@ -25,7 +25,7 @@
       "css": ["./templates/daisyui_v2.51.5.css", "./templates/index.min.css"]
     },
     {
-      "matches": ["https://iprompt.co/*"],
+      "matches": ["https://kalami.ai/*"],
       "run_at": "document_end",
       "js": ["./auth/checkSession.js"]
     }
@@ -36,5 +36,5 @@
       "resources": ["linkedin/templates/*", "assets/*", "static/*"]
     }
   ],
-  "host_permissions": ["https://chat.openai.com/", "https://iprompt.co/"]
+  "host_permissions": ["https://chat.openai.com/", "https://kalami.ai/"]
 }

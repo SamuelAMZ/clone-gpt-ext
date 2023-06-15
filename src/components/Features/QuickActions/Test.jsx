@@ -4,21 +4,6 @@ import React, { useEffect, useState } from "react";
 import ContextBtn from "./ContextBtn";
 
 const Test = () => {
-  const waitForClass = (selector) => {
-    return new Promise((resolve) => {
-      const checkExistence = () => {
-        console.log("check", " ", selector);
-        const element = document.querySelector(selector);
-        if (element) {
-          resolve(element);
-        } else {
-          setTimeout(checkExistence, 100); // Check again after a short delay
-        }
-      };
-      checkExistence();
-    });
-  };
-
   return (
     <>
       <div id="clonegpt-context-btns" className="clonegpt-context-btns">

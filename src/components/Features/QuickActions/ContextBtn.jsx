@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 // helpers
 import postReq from "../../../helpers/postReq";
 import getUid from "../Contexts/helpers/getUid";
+import addToggleTogeneratedContext from "../helpers/addToggleToUi";
 
 // icons
 import { MdOutlineWindow } from "react-icons/md";
@@ -67,20 +68,14 @@ const ContextBtn = () => {
       contextParagraph = `${contextParagraph} \n\n ${elm}`;
     });
 
-    let prompt = `
-      [context]
+    let prompt = `[context]
       ${contextParagraph}
-      \n
-      
-      [instructions]
+      \n[instructions]
       ${intructionParagraph}
-      \n
-      
-      [query]
-      ${query}
-    `;
+      \n[query]
+      ${query}`;
 
-    return prompt;
+    return prompt.trim();
   };
 
   // update textarea
@@ -162,6 +157,9 @@ const ContextBtn = () => {
 
     // send prompt
     sendPrompt();
+
+    // add toggle to new prompt
+    await addToggleTogeneratedContext();
 
     // return to not submit
     // loading anim

@@ -1,0 +1,34 @@
+.clonegpt-collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.clonegpt-collapse {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.clonegpt-collapse.active .clonegpt-collapse-content {
+  max-height: 2000px;
+}
+
+.clonegpt-collapse-toggle {
+  background-color: rgba(36, 36, 36, 0.224);
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #424242;
+  padding: 0.7rem 1rem;
+  font-size: 15px;
+  width: fit-content;
+
+  &:hover {
+    box-shadow: 0 0 10px 10px rgba(36, 36, 36, 0.224);
+    opacity: 9;
+  }
+}
+.clonegpt-collapse-content {
+  background: #00000021;
+  padding: 0 1rem;
+  border-radius: 10px;
+}

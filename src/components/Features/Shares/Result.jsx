@@ -32,7 +32,7 @@ const Result = () => {
   const redirectToShareLink = () => {
     chrome.runtime.sendMessage({
       from: "openUserUrl",
-      url: shareLink ? shareLink : "https://iprompt.co",
+      url: shareLink ? shareLink : "https://kalami.ai",
     });
   };
 
@@ -56,7 +56,7 @@ const Result = () => {
           <div className="input-group">
             <input
               type="text"
-              value={shareLink ? shareLink : "https://iprompt.co"}
+              value={shareLink ? shareLink : "https://kalami.ai"}
               className="input input-bordered input-secondary clonegpt-input-result"
             />
             <button

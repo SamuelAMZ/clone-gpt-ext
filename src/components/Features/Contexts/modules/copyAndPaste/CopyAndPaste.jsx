@@ -38,7 +38,7 @@ const CopyAndPaste = () => {
       status: false,
     },
     {
-      text: "Activating",
+      text: "finishing",
       status: false,
     },
   ]);
@@ -63,7 +63,7 @@ const CopyAndPaste = () => {
         status: "loading",
       },
       {
-        text: "activating",
+        text: "finishing",
         status: false,
       },
     ]);
@@ -76,17 +76,28 @@ const CopyAndPaste = () => {
       return;
     }
 
+    // create txt file and upload file
+    const fileUploadedData = await postReq(
+      { fileContent: formData.rawText },
+      "/api/create-file-then-upload"
+    );
+    if (!fileUploadedData) {
+      console.log("something wrong when uploading context");
+      resetLoadingState();
+      return;
+    }
+
     // create data body
     const newContextData = {
       uid: uid,
       name: formData.name.trim(),
-      rawText: formData.rawText,
+      fileUrl: fileUploadedData.url,
       module: "copyAndPaste",
     };
 
     // create new context
     let serverRes = await postReq(newContextData, "/api/new-context");
-    if (!serverRes) {
+    if (!serverRes || serverRes.code === "bad") {
       console.log("something wrong when creating context");
       resetLoadingState();
       return;
@@ -109,7 +120,7 @@ const CopyAndPaste = () => {
         status: true,
       },
       {
-        text: "activating",
+        text: "finishing",
         status: true,
       },
     ]);
@@ -143,7 +154,7 @@ const CopyAndPaste = () => {
         status: false,
       },
       {
-        text: "activating",
+        text: "finishing",
         status: false,
       },
     ]);

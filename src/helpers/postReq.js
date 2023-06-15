@@ -14,7 +14,7 @@ const postReq = async (data, url) => {
 
   try {
     // fetch
-    const req = await fetch(`${process.env.REACT_APP_API_URL}${url}`, {
+    let req = await fetch(`${process.env.REACT_APP_API_URL}${url}`, {
       mode: "cors",
       method: "POST",
       headers: headers,

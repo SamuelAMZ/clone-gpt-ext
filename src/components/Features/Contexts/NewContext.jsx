@@ -14,6 +14,7 @@ import ContextStatus from "./ContextStatus";
 
 // components (modules)
 import CopyAndPaste from "./modules/copyAndPaste/CopyAndPaste";
+import Pdf from "./modules/pdf/Pdf";
 
 const NewContext = () => {
   const { screen, changeScreen } = useContext(VisibleScrensContext);
@@ -70,6 +71,7 @@ const NewContext = () => {
 
         {/* single module page */}
         {contextScreen.copyAndPaste && <CopyAndPaste />}
+        {contextScreen.pdf && <Pdf />}
 
         {/* context status page */}
         {contextScreen.moduleStatus && <ContextStatus />}

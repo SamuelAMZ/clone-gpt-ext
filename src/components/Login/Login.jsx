@@ -53,7 +53,7 @@ const Login = () => {
         onClick={() => {
           chrome.runtime.sendMessage({
             from: "openUserUrl",
-            url: "https://iprompt.co/auth",
+            url: "https://kalami.ai/auth",
           });
         }}
       >

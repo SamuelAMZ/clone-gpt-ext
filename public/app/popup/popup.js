@@ -22,19 +22,19 @@ const authUser = () => {
 
 // events
 login.addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://iprompt.co/auth" });
+  chrome.tabs.create({ url: "https://kalami.ai/auth" });
 });
 settings.addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://iprompt.co" });
+  chrome.tabs.create({ url: "https://kalami.ai" });
 });
 yourChats.addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://iprompt.co" });
+  chrome.tabs.create({ url: "https://kalami.ai" });
 });
 header.addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://iprompt.co" });
+  chrome.tabs.create({ url: "https://kalami.ai" });
 });
 footer.addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://iprompt.co" });
+  chrome.tabs.create({ url: "https://kalami.ai" });
 });
 
 (() => {

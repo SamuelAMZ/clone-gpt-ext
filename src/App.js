@@ -8,6 +8,7 @@ import { VisibleScrensProvider } from "./contexts/VisibleScreens";
 
 // components
 import Widget from "./components/Widget/Widget";
+import ContextToggles from "./components/Features/CustomUi/ContextToggles";
 
 function App() {
   // react query
@@ -42,6 +43,9 @@ function App() {
           <Widget />
         </VisibleScrensProvider>
       </QueryClientProvider>
+
+      {/* custom ui, all custom js functions */}
+      <ContextToggles />
     </>
   );
 }

@@ -46,7 +46,7 @@ const RecentShares = () => {
   const redirectToShare = (url) => {
     chrome.runtime.sendMessage({
       from: "openUserUrl",
-      url: `https://iprompt.co/disc/${url}`,
+      url: `https://kalami.ai/disc/${url}`,
     });
   };
 
@@ -99,7 +99,7 @@ const RecentShares = () => {
             onClick={() =>
               chrome.runtime.sendMessage({
                 from: "openUserUrl",
-                url: `https://iprompt.co/`,
+                url: `https://kalami.ai/`,
               })
             }
           >

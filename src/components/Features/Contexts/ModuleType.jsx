@@ -12,6 +12,7 @@ import {
 import { BiCopyAlt } from "react-icons/bi";
 import { FiExternalLink } from "react-icons/fi";
 import { MdAddToDrive } from "react-icons/md";
+import { AiOutlineApi } from "react-icons/ai";
 
 const ModuleType = () => {
   const { contextScreen, setContextScreens } = useContext(NewContextContext);
@@ -24,7 +25,17 @@ const ModuleType = () => {
       <div
         className="clonegpt-single-module"
         onClick={() => {
-          console.log("hhh");
+          setContextScreens({
+            pdf: true,
+            copyAndPaste: false,
+            moduleType: false,
+            first: false,
+            moduleStatus: false,
+            externalSite: false,
+            publicDisc: false,
+            txt: false,
+            googleDrive: false,
+          });
         }}
       >
         <BsFileEarmarkPdf className="context-module-icon" />
@@ -54,6 +65,19 @@ const ModuleType = () => {
         <div>
           <p>Copy and paste</p>
           <p>Copy and paste a text for your context</p>
+        </div>
+      </div>
+      {/* api */}
+      <div
+        className="clonegpt-single-module"
+        onClick={() => {
+          console.log("hhh");
+        }}
+      >
+        <AiOutlineApi className="context-module-icon" />
+        <div>
+          <p>API request</p>
+          <p>Get your context from an API request</p>
         </div>
       </div>
       {/* external site */}
