@@ -133,6 +133,14 @@ const ContextStatus = () => {
     backLogic();
   };
 
+  // redirect to context source
+  const redirectToLink = async (link) => {
+    chrome.runtime.sendMessage({
+      from: "openUserUrl",
+      url: link,
+    });
+  };
+
   return (
     <div className="clonegpt-single-context-page">
       {/* back btn */}
@@ -183,6 +191,20 @@ const ContextStatus = () => {
           <div className="clonegpt-single-context-stats">
             <h4>Stats</h4>
             <ul>
+              {contextData?.payload?.data?.previewLink && (
+                <li>
+                  {/* {contextData?.payload?.data?.previewLink} */}
+                  Context Source:{" "}
+                  <span
+                    onClick={() =>
+                      redirectToLink(contextData?.payload?.data?.previewLink)
+                    }
+                  >
+                    {" "}
+                    Link
+                  </span>{" "}
+                </li>
+              )}
               <li>used {contextData?.payload?.data?.used} times</li>
               <li>{contextData?.payload?.data?.size} words in the context</li>
               <li>

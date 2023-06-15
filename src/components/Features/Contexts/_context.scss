@@ -160,6 +160,13 @@
       line-height: 1;
       color: white;
       text-transform: capitalize;
+
+      span {
+        color: #cf046b;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
     .clonegpt-more {
       line-height: 1;
