@@ -41,7 +41,7 @@ const ModuleType = () => {
         <BsFileEarmarkPdf className="context-module-icon" />
         <div>
           <p>PDF</p>
-          <p>Load your context from a PDF file</p>
+          {/* <p>Load your context from a PDF file</p> */}
         </div>
       </div>
       {/* copy and paste */}
@@ -64,7 +64,7 @@ const ModuleType = () => {
         <BiCopyAlt className="context-module-icon" />
         <div>
           <p>Copy and paste</p>
-          <p>Copy and paste a text for your context</p>
+          {/* <p>Copy and paste a text for your context</p> */}
         </div>
       </div>
       {/* api */}
@@ -77,7 +77,7 @@ const ModuleType = () => {
         <AiOutlineApi className="context-module-icon" />
         <div>
           <p>API request</p>
-          <p>Get your context from an API request</p>
+          {/* <p>Get your context from an API request</p> */}
         </div>
       </div>
       {/* external site */}
@@ -90,12 +90,13 @@ const ModuleType = () => {
         <FiExternalLink className="context-module-icon" />
         <div>
           <p>External site</p>
-          <p>Load your context from a public link</p>
+          {/* <p>Load your context from a public link</p> */}
         </div>
       </div>
+
       {/* txt */}
       <div
-        className="clonegpt-single-module"
+        className="clonegpt-single-module faded"
         onClick={() => {
           console.log("hhh");
         }}
@@ -103,12 +104,13 @@ const ModuleType = () => {
         <BsFiletypeTxt className="context-module-icon" />
         <div>
           <p>Text file (.TXT)</p>
-          <p>Use a Text file (.TXT) file as a context</p>
+          <span>Coming Soon</span>
+          {/* <p>Use a Text file (.TXT) file as a context</p> */}
         </div>
       </div>
       {/* public disc */}
       <div
-        className="clonegpt-single-module"
+        className="clonegpt-single-module faded"
         onClick={() => {
           console.log("hhh");
         }}
@@ -116,12 +118,13 @@ const ModuleType = () => {
         <BsChatRightDots className="context-module-icon" />
         <div>
           <p>Public Discussion</p>
-          <p>Use a public Discussion as a context</p>
+          <span>Coming Soon</span>
+          {/* <p>Use a public Discussion as a context</p> */}
         </div>
       </div>
       {/* Google Drive */}
       <div
-        className="clonegpt-single-module"
+        className="clonegpt-single-module faded"
         onClick={() => {
           console.log("hhh");
         }}
@@ -129,7 +132,8 @@ const ModuleType = () => {
         <MdAddToDrive className="context-module-icon" />
         <div>
           <p>Google Drive</p>
-          <p>Load your context from your Google drive</p>
+          <span>Coming Soon</span>
+          {/* <p>Load your context from your Google drive</p> */}
         </div>
       </div>
     </div>

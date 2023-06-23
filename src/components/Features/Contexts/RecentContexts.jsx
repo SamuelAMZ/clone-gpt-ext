@@ -110,11 +110,20 @@ const RecentContexts = () => {
                     className="clonegpt-single-recent-share"
                     onClick={() => redirectToContextPage(elm?._id)}
                   >
-                    <MdOutlineWindow />
-                    <p>
-                      {elm?.name.substr(0, 27)}
-                      {elm?.name.length >= 27 && "..."}
-                    </p>
+                    <div className="context-elements">
+                      <MdOutlineWindow />
+                      <p>
+                        {elm?.name.substr(0, 27)}
+                        {elm?.name.length >= 27 && "..."}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      role="switch"
+                      class="bg-gray-200 radix-state-checked:bg-green-600 relative h-[25px] w-[42px] cursor-pointer rounded-full"
+                    >
+                      <span class="block h-[21px] w-[21px] rounded-full translate-x-0.5 transition-transform duration-100 will-change-transform radix-state-checked:translate-x-[19px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.45)]"></span>
+                    </button>
                   </div>
                 );
               })}
@@ -131,16 +140,28 @@ const RecentContexts = () => {
           userContextsData &&
           userContextsData?.payload?.contexts.map((elm, idx) => {
             return (
-              <div
-                key={idx}
-                className="clonegpt-single-recent-share"
-                onClick={() => redirectToContextPage(elm?._id)}
-              >
-                <MdOutlineWindow />
-                <p>
-                  {elm?.name.substr(0, 27)}
-                  {elm?.name.length >= 27 && "..."}
-                </p>
+              <div key={idx} className="clonegpt-single-recent-share">
+                <div
+                  className="context-elements"
+                  onClick={() => redirectToContextPage(elm?._id)}
+                >
+                  <MdOutlineWindow />
+                  <p>
+                    {elm?.name.substr(0, 27)}
+                    {elm?.name.length >= 27 && "..."}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  data-state="checked"
+                  class="bg-gray-200 radix-state-checked:bg-green-600 relative h-[25px] w-[42px] cursor-pointer rounded-full"
+                >
+                  <span
+                    data-state="checked"
+                    class="block h-[21px] w-[21px] rounded-full translate-x-0.5 transition-transform duration-100 will-change-transform radix-state-checked:translate-x-[19px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
+                  ></span>
+                </button>
               </div>
             );
           })}

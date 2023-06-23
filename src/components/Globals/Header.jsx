@@ -18,8 +18,8 @@ const Header = () => {
   return (
     <div className="clonegpt-header-wrapper">
       <div className="clonegpt-header">
-        <img src={chrome.runtime.getURL("/assets/logo.png")} alt="logo" />
-        <p>CloneGPT</p>
+        {/* <img src={chrome.runtime.getURL("/assets/logo.png")} alt="logo" /> */}
+        <p>Context Manager</p>
       </div>
       <IoMdClose className="clonegpt-widget-icon-close" onClick={closeWidget} />
     </div>

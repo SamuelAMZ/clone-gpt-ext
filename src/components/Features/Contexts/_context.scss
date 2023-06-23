@@ -10,6 +10,11 @@
     color: rgba(142, 142, 160, 1);
   }
 
+  .faded {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
   .clonegpt-single-module {
     width: 100%;
     background-color: transparent;
@@ -17,13 +22,29 @@
     border-radius: 7px;
     padding: 1rem;
     cursor: pointer;
+    position: relative;
 
     display: grid;
     grid-template-columns: 15px 1fr;
     gap: 1rem;
 
     &:hover {
-      border-color: #cf046b;
+      background-color: #588cfe;
+      box-shadow: 5px 5px 0 0 #fec204;
+    }
+
+    span {
+      position: absolute;
+      border-radius: 100px;
+      font-weight: 500;
+      padding: 2px 5px;
+      line-height: 1;
+      background: #fec204;
+      top: 5px;
+      right: 5px;
+      font-size: 12px;
+      color: black;
+      z-index: 2;
     }
 
     .context-module-icon {
@@ -162,7 +183,7 @@
       text-transform: capitalize;
 
       span {
-        color: #cf046b;
+        color: #fec204;
         font-weight: 600;
         cursor: pointer;
         text-decoration: underline;
@@ -208,7 +229,7 @@
     gap: 0.5rem;
 
     &.active {
-      border-color: #cf046b;
+      border-color: #fec204;
     }
 
     .single-loader-icon {
@@ -216,7 +237,7 @@
       margin-left: 2px;
 
       &.active {
-        color: #cf046b;
+        color: #fec204;
       }
     }
     p {
@@ -239,8 +260,13 @@
 .clonegpt-list-loader-container-skeleton {
   width: 100%;
 }
+
 .active-contexts {
   .clonegpt-single-recent-share {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
     &:last-child {
       margin-bottom: 0 !important;
     }
@@ -248,6 +274,25 @@
 }
 
 .clonegpt-context-number {
-  background-color: #cf046b;
+  background-color: #fec204;
   color: white;
+}
+
+.clonegpt-recent-shares {
+  .clonegpt-single-recent-share {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+
+    button[data-state="checked"] {
+      background-color: #fec204 !important;
+    }
+
+    .context-elements {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
 }

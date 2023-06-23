@@ -15,7 +15,7 @@
   padding: 3px 5px;
   border-radius: 10px;
   border: 1px solid #424242;
-  border-bottom: 1px solid #cf046b;
+  border-bottom: 1px solid #fec204;
   color: white;
   font-size: 13px;
 }
@@ -32,14 +32,11 @@
     border: 1px solid #424242;
   }
   .clonegpt-new-share {
-    background-color: #cf046b;
-
-    // &.paused {
-    //   background-color: #004b0a;
-    // }
+    background-color: #588cfe;
+    box-shadow: 5px 5px 0 0 #cc9d10;
 
     &:hover {
-      background-color: #cf0469e6;
+      background-color: #588cfe9e;
     }
   }
 }
@@ -181,7 +178,7 @@
 
     .clonegpt-icon-first-result {
       font-size: 57px;
-      color: #cf046b;
+      color: #fec204;
       margin-top: 1rem;
     }
     p {

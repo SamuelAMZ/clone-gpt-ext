@@ -49,16 +49,16 @@ const NewContext = () => {
         {contextScreen.first && (
           <>
             {/* back btn */}
-            <label className="clonegpt-back-btn" onClick={backLogic}>
+            {/* <label className="clonegpt-back-btn" onClick={backLogic}>
               <IoIosArrowBack /> Back
-            </label>
+            </label> */}
 
             {/* new btn */}
             <button
               className="btn btn-outline w-full clonegpt-new-share"
               onClick={switchToModuleType}
             >
-              New context
+              Upload New Context
             </button>
 
             {/* your recent contexts */}

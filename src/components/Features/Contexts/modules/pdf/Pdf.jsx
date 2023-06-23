@@ -269,7 +269,7 @@ const Pdf = () => {
             className="btn btn-outline w-full clonegpt-new-share"
             onClick={NewContextHandler}
           >
-            Create Context
+            Upload Context
           </button>
         )}
       </form>

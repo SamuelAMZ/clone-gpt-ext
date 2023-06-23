@@ -56,11 +56,11 @@ const CopyAndPaste = () => {
     setLoadingStates([
       {
         text: "preparing",
-        status: true,
+        status: "loading",
       },
       {
         text: "indexing",
-        status: "loading",
+        status: false,
       },
       {
         text: "finishing",
@@ -94,6 +94,21 @@ const CopyAndPaste = () => {
       fileUrl: fileUploadedData.url,
       module: "copyAndPaste",
     };
+
+    setLoadingStates([
+      {
+        text: "preparing",
+        status: true,
+      },
+      {
+        text: "indexing",
+        status: "loading",
+      },
+      {
+        text: "finishing",
+        status: false,
+      },
+    ]);
 
     // create new context
     let serverRes = await postReq(newContextData, "/api/new-context");
@@ -210,7 +225,7 @@ const CopyAndPaste = () => {
             className="btn btn-outline w-full clonegpt-new-share"
             onClick={NewContextHandler}
           >
-            Create Context
+            Upload Context
           </button>
         )}
       </form>

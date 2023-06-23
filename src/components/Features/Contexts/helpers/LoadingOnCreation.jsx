@@ -45,10 +45,10 @@ const LoadingOnCreation = ({ loadingStates }) => {
                 <Oval
                   height={20}
                   width={20}
-                  color="#cf046b"
+                  color="#fec204"
                   visible={true}
                   ariaLabel="oval-loading"
-                  secondaryColor="#cf046b"
+                  secondaryColor="#fec204"
                   strokeWidth={7}
                   strokeWidthSecondary={7}
                 />

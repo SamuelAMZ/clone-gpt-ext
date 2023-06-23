@@ -29,7 +29,8 @@ const AllRoutes = () => {
         setUserId(item.uid);
         changeScreen({
           routes: true,
-          home: true,
+          newContext: true,
+          home: false,
           login: false,
         });
         return;
