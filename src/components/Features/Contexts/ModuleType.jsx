@@ -12,7 +12,8 @@ import {
 import { BiCopyAlt } from "react-icons/bi";
 import { FiExternalLink } from "react-icons/fi";
 import { MdAddToDrive } from "react-icons/md";
-import { AiOutlineApi } from "react-icons/ai";
+import { AiOutlineApi, AiOutlineGithub } from "react-icons/ai";
+import { RxNotionLogo } from "react-icons/rx";
 
 const ModuleType = () => {
   const { contextScreen, setContextScreens } = useContext(NewContextContext);
@@ -132,6 +133,34 @@ const ModuleType = () => {
         <MdAddToDrive className="context-module-icon" />
         <div>
           <p>Google Drive</p>
+          <span>Coming Soon</span>
+          {/* <p>Load your context from your Google drive</p> */}
+        </div>
+      </div>
+      {/* Github Repos */}
+      <div
+        className="clonegpt-single-module faded"
+        onClick={() => {
+          console.log("hhh");
+        }}
+      >
+        <AiOutlineGithub className="context-module-icon" />
+        <div>
+          <p>Github</p>
+          <span>Coming Soon</span>
+          {/* <p>Load your context from your Google drive</p> */}
+        </div>
+      </div>
+      {/* Notion */}
+      <div
+        className="clonegpt-single-module faded"
+        onClick={() => {
+          console.log("hhh");
+        }}
+      >
+        <RxNotionLogo className="context-module-icon" />
+        <div>
+          <p>Notion</p>
           <span>Coming Soon</span>
           {/* <p>Load your context from your Google drive</p> */}
         </div>

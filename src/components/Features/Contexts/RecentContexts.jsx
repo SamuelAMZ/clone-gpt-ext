@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 // contexts
 import NewContextContext from "../../../contexts/NewContext";
@@ -14,8 +14,14 @@ import { useQuery } from "react-query";
 // import loading lib
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+// loader spinner
+import { Oval } from "react-loader-spinner";
+
 // icons
 import { MdOutlineWindow } from "react-icons/md";
+import { BiCopyAlt } from "react-icons/bi";
+import { BsFileEarmarkPdf } from "react-icons/bs";
+import { FiExternalLink } from "react-icons/fi";
 
 const RecentContexts = () => {
   // contexts
@@ -23,6 +29,9 @@ const RecentContexts = () => {
   const { currentContextId, setCurrentContextId } = useContext(
     CurrentContextIdContext
   );
+
+  // states
+  const [changingContextState, setChangingContextState] = useState(false);
 
   // active contexts
   const handleActiveContextsList = async () => {
@@ -42,6 +51,7 @@ const RecentContexts = () => {
   const {
     data: userActiveContextsData,
     isLoading: userActiveContextsDataLoading,
+    refetch: refreshActiveList,
   } = useQuery(["user-active-contexts"], handleActiveContextsList, {
     refetchOnWindowFocus: false,
     enabled: true,
@@ -64,11 +74,14 @@ const RecentContexts = () => {
       "/api/contexts-list"
     );
   };
-  const { data: userContextsData, isLoading: userContextsDataLoading } =
-    useQuery(["user-contexts"], handleContextsList, {
-      refetchOnWindowFocus: false,
-      enabled: true,
-    });
+  const {
+    data: userContextsData,
+    isLoading: userContextsDataLoading,
+    refetch: refreshList,
+  } = useQuery(["user-contexts"], handleContextsList, {
+    refetchOnWindowFocus: false,
+    enabled: true,
+  });
 
   // redirect to single context page
   const redirectToContextPage = (contextId) => {
@@ -89,13 +102,69 @@ const RecentContexts = () => {
     });
   };
 
+  // toggle
+  const activateNewContext = async (currentContextId) => {
+    // get uid
+    const uid = await getUid();
+    if (!uid) {
+      return console.log("session expire, please login.");
+    }
+
+    // activate context
+    const responseFromActivation = await postReq(
+      {
+        uid: uid,
+        contextId: currentContextId,
+      },
+      "/api/activate-context"
+    );
+    if (!responseFromActivation || responseFromActivation?.code !== "ok") {
+      return console.log("error activating context, retry later");
+    }
+  };
+  const pauseContext = async (currentContextId) => {
+    // get uid
+    const uid = await getUid();
+    if (!uid) {
+      return console.log("session expire, please login.");
+    }
+
+    // activate context
+    const responseFromPausing = await postReq(
+      {
+        uid: uid,
+        contextId: currentContextId,
+      },
+      "/api/pause-context"
+    );
+    if (!responseFromPausing || responseFromPausing?.code !== "ok") {
+      return console.log("error activating context, retry later");
+    }
+  };
+  const handleToggle = async (state, contextId) => {
+    setChangingContextState(contextId);
+
+    if (state) {
+      await pauseContext(contextId);
+      await refreshList();
+    }
+
+    if (!state) {
+      await activateNewContext(contextId);
+      await refreshList();
+    }
+
+    await refreshActiveList();
+    setChangingContextState(false);
+  };
+
   return (
     <>
       {/* active contexts */}
       {!userActiveContextsDataLoading &&
         userActiveContextsData &&
         userActiveContextsData?.payload?.count > 0 && (
-          <div className="clonegpt-recent-shares active-contexts">
+          <div className="clonegpt-recent-shares">
             {/* title */}
 
             <h3>Active contexts</h3>
@@ -105,25 +174,47 @@ const RecentContexts = () => {
               userActiveContextsData &&
               userActiveContextsData?.payload?.contexts.map((elm, idx) => {
                 return (
-                  <div
-                    key={idx}
-                    className="clonegpt-single-recent-share"
-                    onClick={() => redirectToContextPage(elm?._id)}
-                  >
-                    <div className="context-elements">
-                      <MdOutlineWindow />
+                  <div key={idx} className="clonegpt-single-recent-share">
+                    <div
+                      className="context-elements"
+                      onClick={() => redirectToContextPage(elm?._id)}
+                    >
+                      {elm?.module === "copyAndPaste" && <BiCopyAlt />}
+                      {elm?.module === "pdf" && <BsFileEarmarkPdf />}
+                      {elm?.module === "externalSite" && <FiExternalLink />}
                       <p>
-                        {elm?.name.substr(0, 27)}
-                        {elm?.name.length >= 27 && "..."}
+                        {elm?.name.substr(0, 17)}
+                        {elm?.name.length >= 17 && "..."}
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      role="switch"
-                      class="bg-gray-200 radix-state-checked:bg-green-600 relative h-[25px] w-[42px] cursor-pointer rounded-full"
-                    >
-                      <span class="block h-[21px] w-[21px] rounded-full translate-x-0.5 transition-transform duration-100 will-change-transform radix-state-checked:translate-x-[19px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.45)]"></span>
-                    </button>
+                    <span className="spinnerAndSwitcher">
+                      {changingContextState &&
+                        changingContextState === elm?._id && (
+                          <span>
+                            <Oval
+                              height={10}
+                              width={10}
+                              color="#fec204"
+                              visible={true}
+                              ariaLabel="oval-loading"
+                              secondaryColor="#fec204"
+                              strokeWidth={7}
+                              strokeWidthSecondary={7}
+                            />
+                          </span>
+                        )}
+                      <label className={`switcher ${elm?.state ? "on" : ""}`}>
+                        <input
+                          type="checkbox"
+                          className="toggle"
+                          checked={elm?.state}
+                          onChange={async () =>
+                            await handleToggle(elm?.state, elm?._id)
+                          }
+                        />
+                        <span className="slider" />
+                      </label>
+                    </span>
                   </div>
                 );
               })}
@@ -145,23 +236,43 @@ const RecentContexts = () => {
                   className="context-elements"
                   onClick={() => redirectToContextPage(elm?._id)}
                 >
-                  <MdOutlineWindow />
+                  {elm?.module === "copyAndPaste" && <BiCopyAlt />}
+                  {elm?.module === "pdf" && <BsFileEarmarkPdf />}
+                  {elm?.module === "externalSite" && <FiExternalLink />}
                   <p>
-                    {elm?.name.substr(0, 27)}
-                    {elm?.name.length >= 27 && "..."}
+                    {elm?.name.substr(0, 17)}
+                    {elm?.name.length >= 17 && "..."}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  role="switch"
-                  data-state="checked"
-                  class="bg-gray-200 radix-state-checked:bg-green-600 relative h-[25px] w-[42px] cursor-pointer rounded-full"
-                >
-                  <span
-                    data-state="checked"
-                    class="block h-[21px] w-[21px] rounded-full translate-x-0.5 transition-transform duration-100 will-change-transform radix-state-checked:translate-x-[19px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
-                  ></span>
-                </button>
+
+                <span className="spinnerAndSwitcher">
+                  {changingContextState &&
+                    changingContextState === elm?._id && (
+                      <span>
+                        <Oval
+                          height={10}
+                          width={10}
+                          color="#fec204"
+                          visible={true}
+                          ariaLabel="oval-loading"
+                          secondaryColor="#fec204"
+                          strokeWidth={7}
+                          strokeWidthSecondary={7}
+                        />
+                      </span>
+                    )}
+                  <label className={`switcher ${elm?.state ? "on" : ""}`}>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      checked={elm?.state}
+                      onChange={async () =>
+                        await handleToggle(elm?.state, elm?._id)
+                      }
+                    />
+                    <span className="slider" />
+                  </label>
+                </span>
               </div>
             );
           })}
