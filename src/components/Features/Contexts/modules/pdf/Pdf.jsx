@@ -3,6 +3,9 @@ import React, { useContext, useState, useEffect } from "react";
 // import loading lib
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
+// icons
+import { IoIosArrowBack } from "react-icons/io";
+
 // context
 import NewContextContext from "../../../../../contexts/NewContext";
 import CurrentContextIdContext from "../../../../../contexts/CurrentContextId";
@@ -43,6 +46,20 @@ const Pdf = () => {
       status: false,
     },
   ]);
+
+  const backLogic = () => {
+    setContextScreens({
+      moduleType: true,
+      first: false,
+      copyAndPaste: false,
+      moduleStatus: false,
+      pdf: false,
+      externalSite: false,
+      publicDisc: false,
+      txt: false,
+      googleDrive: false,
+    });
+  };
 
   const handleFileChange = (event) => {
     setFileUploaded(event.target.files[0]);
@@ -233,6 +250,11 @@ const Pdf = () => {
 
   return (
     <div className="clonegpt-single-module-screen">
+      {/* back btn */}
+      <label className="clonegpt-back-btn" onClick={backLogic}>
+        <IoIosArrowBack /> Back
+      </label>
+
       <h3>PDF module</h3>
       <form onSubmit={NewContextHandler} encType="multipart/form-data">
         <div className="clonegpt-field-group">

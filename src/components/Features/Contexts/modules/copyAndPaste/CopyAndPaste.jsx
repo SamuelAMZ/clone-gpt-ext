@@ -12,6 +12,9 @@ import postReq from "../../../../../helpers/postReq";
 import getUid from "../../helpers/getUid";
 import LoadingOnCreation from "../../helpers/LoadingOnCreation";
 
+// icons
+import { IoIosArrowBack } from "react-icons/io";
+
 const CopyAndPaste = () => {
   const { contextScreen, setContextScreens } = useContext(NewContextContext);
   const { currentContextId, setCurrentContextId } = useContext(
@@ -42,6 +45,20 @@ const CopyAndPaste = () => {
       status: false,
     },
   ]);
+
+  const backLogic = () => {
+    setContextScreens({
+      moduleType: true,
+      first: false,
+      copyAndPaste: false,
+      moduleStatus: false,
+      pdf: false,
+      externalSite: false,
+      publicDisc: false,
+      txt: false,
+      googleDrive: false,
+    });
+  };
 
   const NewContextHandler = async (e) => {
     e.preventDefault();
@@ -183,6 +200,11 @@ const CopyAndPaste = () => {
 
   return (
     <div className="clonegpt-single-module-screen">
+      {/* back btn */}
+      <label className="clonegpt-back-btn" onClick={backLogic}>
+        <IoIosArrowBack /> Back
+      </label>
+
       <h3>Copy and paste module</h3>
       <form onSubmit={NewContextHandler}>
         <div className="clonegpt-field-group">
