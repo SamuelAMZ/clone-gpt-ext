@@ -1,0 +1,76 @@
+.clonegpt-help-container {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+.clonegpt-help-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  .clonegpt-help-title {
+    text-align: center;
+    margin-bottom: 0.6rem;
+    font-size: 1.3rem;
+  }
+
+  .clonegpt-help-post {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #202123;
+    border-radius: 10px;
+    box-shadow: rgba(21, 21, 21, 0.16) 0px 0px 5px 5px;
+    border: 1px solid #141414d0;
+    padding: 0.5rem 1rem;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace !important;
+    cursor: pointer;
+    margin-top: 0rem;
+
+    &:hover {
+      border: 1px solid #cf0469e6;
+      background-color: #2021232b;
+    }
+
+    .clonegpt-help-post-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      h3 {
+        font-size: 14px;
+        color: white;
+        font-weight: 400;
+        margin: 0;
+      }
+      p {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.499);
+        font-weight: 300;
+        margin: 0;
+      }
+    }
+    .clonegpt-help-post-icon {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #cf0469e6;
+      padding: 0;
+      margin: 0;
+
+      svg {
+        margin-top: -0.5rem;
+      }
+    }
+  }
+}

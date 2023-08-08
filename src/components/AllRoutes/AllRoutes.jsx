@@ -5,14 +5,17 @@ import { NewShareScrensProvider } from "../../contexts/NewShare";
 import { ShareLinkProvider } from "../../contexts/ShareLink";
 import { NewContextScrensProvider } from "../../contexts/NewContext";
 import { CurrentContextProvider } from "../../contexts/CurrentContextId";
+import { HelpContextProvider } from "../../contexts/HelpContext";
 
 // context
 import VisibleScrensContext from "../../contexts/VisibleScreens";
 
 // components
 import Header from "../Globals/Header";
+import Footer from "../Globals/Footer";
 import Home from "../Home/Home";
 import Login from "../Login/Login";
+import Help from "../Help/Help";
 import NewShare from "../Features/Shares/NewShare";
 import NewContext from "../Features/Contexts/NewContext";
 
@@ -39,8 +42,8 @@ const AllRoutes = () => {
       setUserId(null);
       changeScreen({
         routes: true,
-        login: true,
-        home: false,
+        login: false,
+        home: true,
       });
     });
   };
@@ -58,13 +61,17 @@ const AllRoutes = () => {
         <ShareLinkProvider>
           <NewContextScrensProvider>
             <CurrentContextProvider>
-              <div className="clonegpt-routes-container">
-                <Header />
-                {screen.login && <Login />}
-                {screen.home && <Home />}
-                {screen.newShare && <NewShare />}
-                {screen.newContext && <NewContext />}
-              </div>
+              <HelpContextProvider>
+                <div className="clonegpt-routes-container">
+                  <Header />
+                  {screen.login && <Login />}
+                  {screen.home && <Home />}
+                  {screen.newShare && <NewShare />}
+                  {screen.newContext && <NewContext />}
+                  {screen.help && <Help />}
+                  <Footer />
+                </div>
+              </HelpContextProvider>
             </CurrentContextProvider>
           </NewContextScrensProvider>
         </ShareLinkProvider>

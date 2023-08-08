@@ -12,12 +12,13 @@
 .clonegpt-header {
   padding: 1rem;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   align-items: flex-end;
   gap: 3px;
-
+  width: 100%;
   img {
-    width: 40;
+    width: 35px;
     height: auto;
   }
 
@@ -33,4 +34,44 @@
   cursor: pointer;
   color: #e7e7e7;
   margin-right: 0.7rem;
+}
+
+.clonegpt-footer-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  background-color: #202123;
+  box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.205);
+  padding: 1rem 0.2rem;
+  border-radius: 15px 0 0 15px;
+
+  position: absolute;
+  bottom: 0;
+
+  .clonegpt-footer-elm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 20px;
+    cursor: pointer;
+
+    &:hover {
+      color: #cf046b;
+    }
+    &.active {
+      color: #cf046b;
+    }
+
+    p {
+      font-size: 14px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+        "Liberation Mono", monospace !important;
+      margin: 0;
+    }
+  }
 }
