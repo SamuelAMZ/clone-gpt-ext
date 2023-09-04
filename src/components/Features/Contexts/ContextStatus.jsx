@@ -10,6 +10,9 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import NewContextContext from "../../../contexts/NewContext";
 import CurrentContextIdContext from "../../../contexts/CurrentContextId";
 
+// components
+import BackBtn from "./BackBtn";
+
 // helpers
 import getUid from "./helpers/getUid";
 import postReq from "../../../helpers/postReq";
@@ -144,9 +147,11 @@ const ContextStatus = () => {
   return (
     <div className="clonegpt-single-context-page">
       {/* back btn */}
-      <label className="clonegpt-back-btn" onClick={backLogic}>
-        <IoIosArrowBack /> Back
-      </label>
+      <BackBtn
+        text="Upload PDF context"
+        desc="Single context page"
+        onClick={backLogic}
+      />
 
       {/* loading */}
       {contextDataLoading && (
@@ -162,54 +167,73 @@ const ContextStatus = () => {
       {/* actual view with data */}
       {!contextDataLoading && contextData && (
         <div className="clonegpt-single-context-wraper">
-          {/* module logo */}
-          {contextData?.payload?.data?.module === "copyAndPaste" && (
-            <BiCopyAlt className="clonegpt-single-context-icon" />
-          )}
-          {contextData?.payload?.data?.module === "pdf" && (
-            <BsFileEarmarkPdf className="clonegpt-single-context-icon" />
-          )}
-          {contextData?.payload?.data?.module === "externalSite" && (
-            <FiExternalLink className="clonegpt-single-context-icon" />
-          )}
-          {contextData?.payload?.data?.module === "txt" && (
-            <BsFiletypeTxt className="clonegpt-single-context-icon" />
-          )}
-          {contextData?.payload?.data?.module === "publicDisc" && (
-            <BsChatRightDots className="clonegpt-single-context-icon" />
-          )}
+          <div className="clonegpt-single-context-wraper-head">
+            <div className="clonegpt-single-context-wraper-icon-new">
+              {/* module logo */}
+              {contextData?.payload?.data?.module === "copyAndPaste" && (
+                <BiCopyAlt className="clonegpt-single-context-icon" />
+              )}
+              {contextData?.payload?.data?.module === "pdf" && (
+                <BsFileEarmarkPdf className="clonegpt-single-context-icon" />
+              )}
+              {contextData?.payload?.data?.module === "externalSite" && (
+                <FiExternalLink className="clonegpt-single-context-icon" />
+              )}
+              {contextData?.payload?.data?.module === "txt" && (
+                <BsFiletypeTxt className="clonegpt-single-context-icon" />
+              )}
+              {contextData?.payload?.data?.module === "publicDisc" && (
+                <BsChatRightDots className="clonegpt-single-context-icon" />
+              )}
+            </div>
 
-          {/* context name */}
-          <h3>{contextData?.payload?.data?.name}</h3>
+            {/* context name */}
+            <h3>{contextData?.payload?.data?.name}</h3>
 
-          {/* context text preview */}
-          <p>
-            {contextData?.payload?.data?.preview}... {/* <span>more</span> */}
-          </p>
+            {/* context text preview */}
+            {/* <p>
+            {contextData?.payload?.data?.preview}...
+          </p> 
+          */}
+          </div>
 
           {/* context stats */}
           <div className="clonegpt-single-context-stats">
             <h4>Stats</h4>
+            <span className="clonegpt-single-context-page-line"></span>
             <ul>
               {contextData?.payload?.data?.previewLink && (
                 <li>
-                  {/* {contextData?.payload?.data?.previewLink} */}
-                  Context Source:{" "}
-                  <span
-                    onClick={() =>
-                      redirectToLink(contextData?.payload?.data?.previewLink)
-                    }
-                  >
-                    {" "}
-                    Link
-                  </span>{" "}
+                  Context Source:
+                  <span>
+                    <p
+                      onClick={() =>
+                        redirectToLink(contextData?.payload?.data?.previewLink)
+                      }
+                      className="clonegpt-source-link"
+                    >
+                      Link
+                    </p>
+                  </span>
                 </li>
               )}
-              <li>used {contextData?.payload?.data?.used} times</li>
-              <li>{contextData?.payload?.data?.size} words in the context</li>
               <li>
-                created at{" "}
-                {contextData?.payload?.data?.createdAt?.split("T")[0]}
+                Uses Time:
+                <span>
+                  <p>{contextData?.payload?.data?.used}</p>
+                </span>
+              </li>
+              <li>
+                Words in the context:
+                <span>
+                  <p>{contextData?.payload?.data?.size}</p>
+                </span>
+              </li>
+              <li>
+                Created at:
+                <span>
+                  <p>{contextData?.payload?.data?.createdAt?.split("T")[0]}</p>
+                </span>
               </li>
               {/* <li className="clonegpt-more">More</li> */}
             </ul>

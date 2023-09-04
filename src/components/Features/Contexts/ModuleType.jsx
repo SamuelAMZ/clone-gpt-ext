@@ -3,6 +3,9 @@ import React, { useContext } from "react";
 // contexts
 import NewContextContext from "../../../contexts/NewContext";
 
+// components
+import BackBtn from "./BackBtn";
+
 // icons
 import {
   BsFileEarmarkPdf,
@@ -10,9 +13,9 @@ import {
   BsChatRightDots,
 } from "react-icons/bs";
 import { BiCopyAlt } from "react-icons/bi";
-import { FiExternalLink } from "react-icons/fi";
+import { FiExternalLink, FiSlack } from "react-icons/fi";
 import { MdAddToDrive } from "react-icons/md";
-import { AiOutlineApi, AiOutlineGithub } from "react-icons/ai";
+import { AiOutlineApi, AiOutlineGithub, AiFillFilePdf } from "react-icons/ai";
 import { RxNotionLogo } from "react-icons/rx";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -36,12 +39,12 @@ const ModuleType = () => {
   return (
     <div className="clonegpt-context-modules">
       {/* back btn */}
-      <label className="clonegpt-back-btn" onClick={backLogic}>
-        <IoIosArrowBack /> Back
-      </label>
+      <BackBtn
+        onClick={backLogic}
+        text="Upload new context"
+        desc="Train GPT on your own data"
+      />
 
-      {/* selects */}
-      <h3>Select a module</h3>
       {/* pdf */}
       <div
         className="clonegpt-single-module"
@@ -59,10 +62,33 @@ const ModuleType = () => {
           });
         }}
       >
-        <BsFileEarmarkPdf className="context-module-icon" />
+        <AiFillFilePdf className="context-module-icon" />
         <div>
           <p>PDF</p>
           {/* <p>Load your context from a PDF file</p> */}
+        </div>
+      </div>
+      {/* external site */}
+      <div
+        className="clonegpt-single-module"
+        onClick={() => {
+          setContextScreens({
+            externalSite: true,
+            copyAndPaste: false,
+            moduleType: false,
+            first: false,
+            moduleStatus: false,
+            pdf: false,
+            publicDisc: false,
+            txt: false,
+            googleDrive: false,
+          });
+        }}
+      >
+        <FiExternalLink className="context-module-icon" />
+        <div>
+          <p>External site</p>
+          {/* <p>Load your context from a public link</p> */}
         </div>
       </div>
       {/* copy and paste */}
@@ -88,33 +114,21 @@ const ModuleType = () => {
           {/* <p>Copy and paste a text for your context</p> */}
         </div>
       </div>
+
       {/* api */}
       <div
-        className="clonegpt-single-module"
+        className="clonegpt-single-module faded"
         onClick={() => {
           console.log("hhh");
         }}
       >
-        <AiOutlineApi className="context-module-icon" />
+        <AiOutlineApi className="context-module-icon " />
         <div>
           <p>API request</p>
+          <span>Coming Soon</span>
           {/* <p>Get your context from an API request</p> */}
         </div>
       </div>
-      {/* external site */}
-      <div
-        className="clonegpt-single-module"
-        onClick={() => {
-          console.log("hhh");
-        }}
-      >
-        <FiExternalLink className="context-module-icon" />
-        <div>
-          <p>External site</p>
-          {/* <p>Load your context from a public link</p> */}
-        </div>
-      </div>
-
       {/* Github Repos */}
       <div
         className="clonegpt-single-module faded"
@@ -150,11 +164,10 @@ const ModuleType = () => {
           console.log("hhh");
         }}
       >
-        <BsFiletypeTxt className="context-module-icon" />
+        <FiSlack className="context-module-icon" />
         <div>
-          <p>Text file (.TXT)</p>
+          <p>Slack</p>
           <span>Coming Soon</span>
-          {/* <p>Use a Text file (.TXT) file as a context</p> */}
         </div>
       </div>
       {/* public disc */}

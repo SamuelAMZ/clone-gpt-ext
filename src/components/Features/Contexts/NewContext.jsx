@@ -11,10 +11,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import ModuleType from "./ModuleType";
 import RecentContexts from "./RecentContexts";
 import ContextStatus from "./ContextStatus";
+import Filters from "./Filters";
+import SomeModules from "./SomeModules";
 
 // components (modules)
 import CopyAndPaste from "./modules/copyAndPaste/CopyAndPaste";
 import Pdf from "./modules/pdf/Pdf";
+import ExternalSite from "./modules/externalSite/ExternalSite";
 
 const NewContext = () => {
   const { screen, changeScreen } = useContext(VisibleScrensContext);
@@ -54,12 +57,16 @@ const NewContext = () => {
             </label> */}
 
             {/* new btn */}
-            <button
+            {/* <button
               className="btn btn-outline w-full clonegpt-new-share"
               onClick={switchToModuleType}
             >
               Upload New Context
-            </button>
+            </button> */}
+            <SomeModules onClick={switchToModuleType} />
+
+            {/* search and filters */}
+            <Filters />
 
             {/* your recent contexts */}
             <RecentContexts />
@@ -72,6 +79,7 @@ const NewContext = () => {
         {/* single module page */}
         {contextScreen.copyAndPaste && <CopyAndPaste />}
         {contextScreen.pdf && <Pdf />}
+        {contextScreen.externalSite && <ExternalSite />}
 
         {/* context status page */}
         {contextScreen.moduleStatus && <ContextStatus />}

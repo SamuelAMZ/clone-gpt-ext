@@ -1,6 +1,6 @@
 .clonegpt-context-btns {
   position: fixed;
-  bottom: 3rem;
+  bottom: 3.25rem;
   right: 1rem;
 
   label {
@@ -11,5 +11,65 @@
     background-color: rgba(64, 65, 79, 1);
     gap: 0.5rem;
     width: 200px !important;
+  }
+}
+
+.clonegpt-opening-wraper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 56px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 0.5px;
+  cursor: pointer;
+  border: 1px solid #fbbb00;
+
+  background: linear-gradient(0deg, #40414f, #40414f),
+    linear-gradient(
+      104.02deg,
+      rgba(254, 194, 4, 0.4) 0.54%,
+      rgba(254, 194, 4, 0.21) 51.27%,
+      rgba(254, 194, 4, 0.4) 99.11%
+    );
+
+  img {
+    width: 35px;
+    height: 31px;
+    object-fit: cover;
+  }
+}
+
+.clonegpt-context-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+#clonegpt-context-btn {
+  width: 102px;
+  height: 56px;
+  padding: 19px 10px 19px 10px;
+  border-radius: 12px;
+  background-color: #40414f;
+  border: 0.5px solid #fbbb00;
+
+  svg {
+    width: 16px !important;
+    height: 13px !important;
+    color: #fbbb00 !important;
+    fill: #fbbb00 !important;
+  }
+  p {
+    font-family: "Urbanist", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 14px !important;
+    letter-spacing: 0em !important;
+    color: #fbbb00 !important;
   }
 }

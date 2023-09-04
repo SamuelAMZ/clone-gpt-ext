@@ -22,6 +22,7 @@ import { MdOutlineWindow } from "react-icons/md";
 import { BiCopyAlt } from "react-icons/bi";
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import { FiExternalLink } from "react-icons/fi";
+import { AiFillFilePdf } from "react-icons/ai";
 
 const RecentContexts = () => {
   // contexts
@@ -54,7 +55,7 @@ const RecentContexts = () => {
     refetch: refreshActiveList,
   } = useQuery(["user-active-contexts"], handleActiveContextsList, {
     refetchOnWindowFocus: false,
-    enabled: true,
+    enabled: false,
   });
 
   // all contexts
@@ -69,7 +70,7 @@ const RecentContexts = () => {
       {
         uid: uid,
         page: "0",
-        perPage: "5",
+        perPage: "7",
       },
       "/api/contexts-list"
     );
@@ -160,72 +161,8 @@ const RecentContexts = () => {
 
   return (
     <>
-      {/* active contexts */}
-      {!userActiveContextsDataLoading &&
-        userActiveContextsData &&
-        userActiveContextsData?.payload?.count > 0 && (
-          <div className="clonegpt-recent-shares">
-            {/* title */}
-
-            <h3>Active contexts</h3>
-
-            {/* data fetched succesfully component */}
-            {!userActiveContextsDataLoading &&
-              userActiveContextsData &&
-              userActiveContextsData?.payload?.contexts.map((elm, idx) => {
-                return (
-                  <div key={idx} className="clonegpt-single-recent-share">
-                    <div
-                      className="context-elements"
-                      onClick={() => redirectToContextPage(elm?._id)}
-                    >
-                      {elm?.module === "copyAndPaste" && <BiCopyAlt />}
-                      {elm?.module === "pdf" && <BsFileEarmarkPdf />}
-                      {elm?.module === "externalSite" && <FiExternalLink />}
-                      <p>
-                        {elm?.name.substr(0, 17)}
-                        {elm?.name.length >= 17 && "..."}
-                      </p>
-                    </div>
-                    <span className="spinnerAndSwitcher">
-                      {changingContextState &&
-                        changingContextState === elm?._id && (
-                          <span>
-                            <Oval
-                              height={10}
-                              width={10}
-                              color="#fec204"
-                              visible={true}
-                              ariaLabel="oval-loading"
-                              secondaryColor="#fec204"
-                              strokeWidth={7}
-                              strokeWidthSecondary={7}
-                            />
-                          </span>
-                        )}
-                      <label className={`switcher ${elm?.state ? "on" : ""}`}>
-                        <input
-                          type="checkbox"
-                          className="toggle"
-                          checked={elm?.state}
-                          onChange={async () =>
-                            await handleToggle(elm?.state, elm?._id)
-                          }
-                        />
-                        <span className="slider" />
-                      </label>
-                    </span>
-                  </div>
-                );
-              })}
-          </div>
-        )}
-
       {/* all contexts */}
       <div className="clonegpt-recent-shares">
-        {/* title */}
-        <h3>All contexts</h3>
-
         {/* data fetched succesfully component */}
         {!userContextsDataLoading &&
           userContextsData &&
@@ -237,11 +174,11 @@ const RecentContexts = () => {
                   onClick={() => redirectToContextPage(elm?._id)}
                 >
                   {elm?.module === "copyAndPaste" && <BiCopyAlt />}
-                  {elm?.module === "pdf" && <BsFileEarmarkPdf />}
+                  {elm?.module === "pdf" && <AiFillFilePdf />}
                   {elm?.module === "externalSite" && <FiExternalLink />}
                   <p>
-                    {elm?.name.substr(0, 17)}
-                    {elm?.name.length >= 17 && "..."}
+                    {elm?.name.substr(0, 25)}
+                    {elm?.name.length >= 25 && "..."}
                   </p>
                 </div>
 
@@ -293,11 +230,11 @@ const RecentContexts = () => {
         )}
 
         {/* load more btn */}
-        {!userContextsDataLoading && userContextsData && (
+        {/* {!userContextsDataLoading && userContextsData && (
           <div className="clonegpt-btn-bottom">
             <button className="btn btn-outline w-full">Load more</button>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

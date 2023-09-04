@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 // react query
 import { useQuery } from "react-query";
+
+// context
+import VisibleScrensContext from "../../../contexts/VisibleScreens";
+
+// components
+import AllRoutes from "../../AllRoutes/AllRoutes";
 
 // helpers
 import postReq from "../../../helpers/postReq";
@@ -9,10 +15,28 @@ import getUid from "../Contexts/helpers/getUid";
 import addToggleTogeneratedContext from "../helpers/addToggleToUi";
 
 // icons
-import { MdOutlineWindow } from "react-icons/md";
+import { BiSend } from "react-icons/bi";
 
 const ContextBtn = () => {
+  const { screen, changeScreen } = useContext(VisibleScrensContext);
   const [loadingQuery, setLoadingQuery] = useState(false);
+
+  const cloneGptShowRoutes = () => {
+    if (screen.routes) {
+      changeScreen({
+        routes: false,
+        home: false,
+        login: false,
+      });
+      return;
+    }
+
+    changeScreen({
+      routes: true,
+      home: false,
+      login: false,
+    });
+  };
 
   // active contexts
   const handleActiveContextsList = async () => {
@@ -183,15 +207,18 @@ const ContextBtn = () => {
           className="btn relative btn-neutral border-0 md:border"
           onClick={sendQueryRequest}
         >
-          <div className="flex w-full gap-2 items-center justify-center">
-            <MdOutlineWindow className="h-3 w-3 flex-shrink-0" />
-            Generate context
-            <span className="clonegpt-context-number inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
+          <div className="flex w-full gap-1 items-center justify-center">
+            <BiSend className="h-3 w-3 flex-shrink-0" />
+            <p>Ask Kalami</p>
+            {/* <span className="clonegpt-context-number inline-flex items-center justify-center w-4 h-4 ml-2 text-xs font-semibold rounded-full">
               {userActiveContextsData?.payload?.count}
-            </span>
+            </span> */}
           </div>
         </div>
       )}
+      <div className="clonegpt-opening-wraper" onClick={cloneGptShowRoutes}>
+        <img src={chrome.runtime.getURL("/assets/logo.png")} alt="logo" />
+      </div>
     </>
   );
 };

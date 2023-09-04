@@ -25,18 +25,21 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
 
   button {
     font-family: "Urbanist", sans-serif;
     border: 1px solid #424242;
   }
   .clonegpt-new-share {
-    background-color: #588cfe;
-    box-shadow: 5px 5px 0 0 #cc9d10;
+    background-color: #fbbb00;
+    color: black;
+    font-size: 15px;
+    border-radius: 8px;
 
     &:hover {
-      background-color: #588cfe9e;
+      opacity: 0.7;
+      background-color: #fbbb00;
     }
   }
 }

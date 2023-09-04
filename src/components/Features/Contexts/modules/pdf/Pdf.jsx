@@ -24,7 +24,6 @@ const Pdf = () => {
   // new context form state
   const [formDataG, setFormDataG] = useState({
     name: "",
-    rawText: "",
   });
   const [fileUploaded, setFileUploaded] = useState(null);
 
@@ -113,7 +112,6 @@ const Pdf = () => {
 
       try {
         // fetch
-
         let req = await fetch(
           `${process.env.REACT_APP_API_URL}/api/upload-file`,
           {
@@ -224,7 +222,6 @@ const Pdf = () => {
   const resetLoadingState = () => {
     setFormDataG({
       name: "",
-      rawText: "",
     });
     setLoadingStates([
       {

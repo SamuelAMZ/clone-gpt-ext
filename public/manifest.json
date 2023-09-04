@@ -36,5 +36,5 @@
       "resources": ["linkedin/templates/*", "assets/*", "static/*"]
     }
   ],
-  "host_permissions": ["https://chat.openai.com/", "https://kalami.ai/"]
+  "host_permissions": ["https://*/*", "http://*/*"]
 }

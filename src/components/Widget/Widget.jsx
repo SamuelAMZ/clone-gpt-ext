@@ -27,10 +27,10 @@ const Widget = () => {
   return (
     <>
       {/* widget never move */}
-      <div className="clonegpt-wrapper" onClick={cloneGptShowRoutes}>
+      {/* <div className="clonegpt-wrapper" onClick={cloneGptShowRoutes}>
         <img src={chrome.runtime.getURL("/assets/logo.png")} alt="logo" />
         <AiOutlinePlus className="clonegpt-widget-icon" />
-      </div>
+      </div> */}
 
       {/* btns */}
       <Test />

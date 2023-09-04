@@ -1,37 +1,170 @@
 .clonegpt-user-login {
   width: 100%;
   height: 100%;
+  font-family: "Urbanist", sans-serif;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    // margin: rem 0;
+    color: #e5e7eb;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .clonegpt-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #e5e7eb;
+      }
+      .clonegpt-input {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        border: 0.5px solid #374151;
+        font-size: 22px;
+        color: grey;
+        padding: 0 0 0 1rem;
+        background-color: #292b2d;
+
+        input {
+          font-size: 15px;
+          background-color: transparent;
+          border: none;
+          padding: 0.75rem;
+        }
+      }
+    }
+
+    button {
+      background-color: #fbbb00;
+      color: black;
+      font-size: 15px;
+      margin-top: 0.75rem;
+
+      &:hover {
+        opacity: 0.7;
+        background-color: #fbbb00;
+      }
+    }
+  }
+}
+
+.clonegpt-extra-login {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
-  padding: 0 1.5rem;
-  margin-top: 2rem;
-  font-family: "Urbanist", sans-serif;
+  justify-content: space-between;
+
+  .clonegpt-remember-me {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      background-color: transparent;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 17px;
+      letter-spacing: 0em;
+      color: #e5e7eb;
+    }
+  }
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #fbbb00;
+    cursor: pointer;
+  }
 }
 
-.clonegpt-user-login svg {
-  width: 55px;
-  fill: #cf046b;
-}
-.clonegpt-user-login h1 {
-  font-size: 19px;
-  font-weight: 600;
-  text-align: center;
-}
-.clonegpt-user-login p {
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.4;
-  text-align: center;
-  margin-bottom: 0.8rem;
-}
-.clonegpt-user-login button {
-  background-color: #cf046b;
-  font-family: "Urbanist", sans-serif;
+.clonegpt-oauth {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
 
-  &:hover {
-    background-color: #cf0469e6;
+  .clonegpt-oauth-text {
+    display: grid;
+    grid-template-columns: 70px 1fr 70px;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      width: 100%;
+      height: 1px;
+      background-color: grey;
+    }
+    p {
+      font-size: 15px;
+      color: #e5e7eb;
+      text-align: center;
+      text-transform: capitalize;
+    }
+  }
+
+  .clonegpt-oauth-items-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+
+    .clonegpt-oauth-item {
+      font-size: 22px;
+      border: 1px solid #374151;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0;
+      cursor: pointer;
+
+      svg {
+        fill: #fbbb00;
+      }
+    }
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #e5e7eb;
+
+    span {
+      color: #fbbb00;
+      cursor: pointer;
+    }
   }
 }
