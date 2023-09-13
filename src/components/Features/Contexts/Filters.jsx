@@ -6,9 +6,12 @@ import { TbArrowsSort } from "react-icons/tb";
 import { BsSearch } from "react-icons/bs";
 
 const Filters = () => {
+  const searchHandler = async (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="clonegpt-filters">
-      <form>
+      <form onSubmit={searchHandler}>
         {/* icon */}
         <BsSearch />
         {/* search input */}
