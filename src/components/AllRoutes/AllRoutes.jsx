@@ -37,10 +37,17 @@ const AllRoutes = () => {
       }
 
       setUserId(null);
+      // changeScreen({
+      //   routes: true,
+      //   login: true,
+      //   home: false,
+      // });
+
       changeScreen({
         routes: true,
-        login: true,
+        newContext: true,
         home: false,
+        login: false,
       });
     });
   };
